@@ -1,13 +1,23 @@
 import './style.css';
-import {setupCounter} from './controllers/counter';
+import ButtonCounter from './views/ButtonCounter';
+import CounterController from './controllers/CounterController';
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <h1>Singleton</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-  </div>
-`;
+interface App {
+  rootElement: HTMLElement;
+  buttonCounters: CounterController[];
+  init(): void;
+}
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!);
+const app: App = {
+  rootElement: document.querySelector<HTMLDivElement>('#app')!,
+  buttonCounters: [],
+  init() {
+    app.rootElement = document.querySelector<HTMLDivElement>('#app')!;
+    const buttonLength = 5;
+    this.buttonCounters = Array.from({length: buttonLength}, () => {
+      return new CounterController(new ButtonCounter(app.rootElement));
+    });
+  },
+};
+
+document.addEventListener('DOMContentLoaded', () => app.init());
