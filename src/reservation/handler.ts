@@ -14,6 +14,10 @@ export const reserveHandler: ProxyHandler<ReserveCount> = {
       throw new Error('0 이상으로 입력해주세요.');
     }
 
+    if (key === 'adultCount' && 1 > value) {
+      throw new Error('성인이 1명 이상이여야 합니다.');
+    }
+
     target[key] = value;
     return true;
   },

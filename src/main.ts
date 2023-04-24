@@ -6,7 +6,7 @@ import {reserveHandler} from './reservation/handler';
 const appEl = document.querySelector<HTMLDivElement>('#app')!;
 
 const reserveCountLiteral: ReserveCount = {
-  adultCount: 1,
+  adultCount: 0,
   kidCount: 0,
 };
 
@@ -26,10 +26,27 @@ reserveFormEl.addEventListener('submit', evt => {
 
   try {
     reserveCount.adultCount = invalidReserveCount.adultCount;
+  } catch (error) {
+    if (error instanceof Error) {
+      alert(error.message);
+      const input = document.querySelector<HTMLInputElement>(
+        "[name='adult-count']"
+      )!;
+      input.value = '';
+      input.focus();
+      return;
+    }
+  }
+
+  try {
     reserveCount.kidCount = invalidReserveCount.kidCount;
   } catch (error) {
     if (error instanceof Error) {
       alert(error.message);
+      const input =
+        document.querySelector<HTMLInputElement>("[name='kid-count']")!;
+      input.value = '';
+      input.focus();
       return;
     }
   }
