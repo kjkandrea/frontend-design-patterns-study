@@ -1,24 +1,34 @@
 import './style.css';
-import typescriptLogo from './typescript.svg';
-import viteLogo from '/vite.svg';
-import {setupCounter} from './counter';
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-       <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
+const appEl = document.querySelector<HTMLDivElement>('#app')!;
+const reserveFormEl = document.createElement('form');
+appEl.append(reserveFormEl);
+
+reserveFormEl.innerHTML = `
+  <form>
+    <h1>예약하실 인원을 입력하세요.</h1>
+    <fieldset>
+      <label>
+        성인 <input type="number" name="adult-count" value="0" />
+      </label>
+      명
+    </fieldset>
+    <fieldset>
+      <label>
+        유아 <input type="number" name="kid-count" value="0" />
+      </label>
+      명
+    </fieldset>
+    <button type="submit">확인</button>
+  </form>
 `;
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!);
+reserveFormEl.addEventListener('submit', evt => {
+  evt.preventDefault();
+
+  const formData = new FormData(evt.target as HTMLFormElement);
+  console.table({
+    adultCount: formData.get('adult-count'),
+    kidCount: formData.get('kid-count'),
+  });
+});
