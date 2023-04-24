@@ -1,6 +1,7 @@
 import './style.css';
 import {createReserveFormEl} from './reservation/form';
 import {ReserveCount} from './reservation/ReserveCount';
+import {reserveHandler} from './reservation/handler';
 
 const appEl = document.querySelector<HTMLDivElement>('#app')!;
 
@@ -9,7 +10,7 @@ const reserveCountLiteral: ReserveCount = {
   kidCount: 0,
 };
 
-const reserveCount = new Proxy(reserveCountLiteral, {});
+const reserveCount = new Proxy(reserveCountLiteral, reserveHandler);
 
 const reserveFormEl = createReserveFormEl(reserveCountLiteral);
 appEl.append(reserveFormEl);
@@ -33,5 +34,6 @@ reserveFormEl.addEventListener('submit', evt => {
     }
   }
 
-  alert('done');
+  alert('완료 : 콘솔 창을 확인하세요.');
+  console.table(reserveCountLiteral);
 });
