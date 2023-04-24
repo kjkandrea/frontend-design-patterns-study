@@ -29,8 +29,8 @@ reserveFormEl.addEventListener('submit', evt => {
   } catch (error) {
     if (error instanceof Error) {
       alert(error.message);
+      return;
     }
-    return;
   }
 
   alert('done');
