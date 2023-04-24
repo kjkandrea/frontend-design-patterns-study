@@ -1,7 +1,5 @@
 import './style.css';
-import {createReserveFormEl} from './reservation/form';
-import {ReserveCount} from './reservation/ReserveCount';
-import {reserveHandler} from './reservation/handler';
+import {ReserveCount, createReserveFormEl, reserveHandler} from './reserve';
 
 const appEl = document.querySelector<HTMLDivElement>('#app')!;
 
