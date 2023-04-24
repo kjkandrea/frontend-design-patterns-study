@@ -1,8 +1,15 @@
 import './style.css';
 import {createReserveFormEl} from './reservation/form';
+import {ReserveCount} from './reservation/ReserveCount';
 
 const appEl = document.querySelector<HTMLDivElement>('#app')!;
-const reserveFormEl = createReserveFormEl();
+
+const reserveCount: ReserveCount = {
+  adultCount: 1,
+  kidCount: 0,
+};
+
+const reserveFormEl = createReserveFormEl(reserveCount);
 appEl.append(reserveFormEl);
 
 reserveFormEl.addEventListener('submit', evt => {

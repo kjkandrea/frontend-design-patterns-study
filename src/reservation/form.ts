@@ -1,15 +1,17 @@
-const createTemplate = () => `
+import {ReserveCount} from './ReserveCount';
+
+const createTemplate = (defaultReserveCount: ReserveCount) => `
   <form>
     <h1>예약하실 인원을 입력하세요.</h1>
     <fieldset>
       <label>
-        성인 <input type="number" name="adult-count" value="0" />
+        성인 <input type="number" name="adult-count" value=${defaultReserveCount.adultCount} />
       </label>
       명
     </fieldset>
     <fieldset>
       <label>
-        유아 <input type="number" name="kid-count" value="0" />
+        유아 <input type="number" name="kid-count" value=${defaultReserveCount.kidCount} />
       </label>
       명
     </fieldset>
@@ -17,10 +19,13 @@ const createTemplate = () => `
   </form>
 `;
 
-export const createReserveFormEl = () => {
+export const createReserveFormEl = (defaultReserveCount: ReserveCount) => {
   const reserveFormEl = document.createElement('form');
 
-  reserveFormEl.insertAdjacentHTML('beforeend', createTemplate());
+  reserveFormEl.insertAdjacentHTML(
+    'beforeend',
+    createTemplate(defaultReserveCount)
+  );
 
   return reserveFormEl;
 };
