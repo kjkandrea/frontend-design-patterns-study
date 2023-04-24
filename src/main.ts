@@ -4,20 +4,34 @@ import {ReserveCount} from './reservation/ReserveCount';
 
 const appEl = document.querySelector<HTMLDivElement>('#app')!;
 
-const reserveCount: ReserveCount = {
+const reserveCountLiteral: ReserveCount = {
   adultCount: 1,
   kidCount: 0,
 };
 
-const reserveFormEl = createReserveFormEl(reserveCount);
+const reserveCount = new Proxy(reserveCountLiteral, {});
+
+const reserveFormEl = createReserveFormEl(reserveCountLiteral);
 appEl.append(reserveFormEl);
 
 reserveFormEl.addEventListener('submit', evt => {
   evt.preventDefault();
 
   const formData = new FormData(evt.target as HTMLFormElement);
-  console.table({
-    adultCount: formData.get('adult-count'),
-    kidCount: formData.get('kid-count'),
-  });
+  const invalidReserveCount: ReserveCount = {
+    adultCount: Number(formData.get('adult-count')),
+    kidCount: Number(formData.get('kid-count')),
+  };
+
+  try {
+    reserveCount.adultCount = invalidReserveCount.adultCount;
+    reserveCount.kidCount = invalidReserveCount.kidCount;
+  } catch (error) {
+    if (error instanceof Error) {
+      alert(error.message);
+    }
+    return;
+  }
+
+  alert('done');
 });
