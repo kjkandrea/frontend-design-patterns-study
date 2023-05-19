@@ -3,9 +3,8 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
+    "open": "yarn complie && open ./index.html",
+    "complie": "tsc ./src/main.ts",
     "lint": "gts lint",
     "clean": "gts clean",
     "compile": "tsc",

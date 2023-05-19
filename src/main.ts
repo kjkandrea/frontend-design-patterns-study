@@ -1,24 +1,71 @@
-import './style.css';
-import typescriptLogo from './typescript.svg';
-import viteLogo from '/vite.svg';
-import {setupCounter} from './counter';
+const puppyRepository: {
+  array: Puppy[];
+  map: Map<Puppy['id'], Puppy>;
+} = {
+  array: [],
+  map: new Map(),
+};
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-       <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`;
+const puppyService = {
+  creatPuppy() {
+    return new Puppy('K', 'Welsh corgi', 3);
+  },
+  cashArray(puppy: Puppy) {
+    puppyRepository.array.push(puppy);
+  },
+  cashMap(puppy: Puppy) {
+    const exist = puppyRepository.map.has(puppy.id);
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!);
+    if (exist) return;
+
+    puppyRepository.map.set(puppy.id, puppy);
+  },
+  renderPuppy(containerElement: HTMLElement, puppy: Puppy) {
+    const puppyElement = this._createPuppyElement(puppy);
+    containerElement.append(puppyElement);
+  },
+  _createPuppyElement(puppy: Puppy): HTMLElement {
+    const rootElement = document.createElement('li');
+    const breedElement = document.createElement('span');
+    const ageElement = document.createElement('span');
+    const indexElement = document.createElement('span');
+
+    rootElement.dataset.id = puppy.id;
+    breedElement.textContent = `🐶 ${puppy.breed}`;
+    ageElement.textContent = String(puppy.age);
+
+    rootElement.append(breedElement, ageElement, indexElement);
+
+    return rootElement;
+  },
+};
+
+class Puppy {
+  readonly id: string;
+  readonly breed: string;
+  readonly age: number;
+
+  constructor(id: string, breed: string, age: number) {
+    this.id = id;
+    this.breed = breed;
+    this.age = age;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document
+    .getElementById('execute-add-puppy-in-array-save-click-trigger')!
+    .addEventListener('click', () => {
+      const puppy = puppyService.creatPuppy();
+      puppyService.cashArray(puppy);
+      puppyService.renderPuppy(document.getElementById('puppies')!, puppy);
+    });
+
+  document
+    .getElementById('execute-add-puppy-in-map-save-click-trigger')!
+    .addEventListener('click', () => {
+      const puppy = puppyService.creatPuppy();
+      puppyService.cashMap(puppy);
+      puppyService.renderPuppy(document.getElementById('puppies')!, puppy);
+    });
+});
