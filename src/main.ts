@@ -41,9 +41,9 @@ const puppyService = {
 };
 
 class Puppy {
-  id: string;
-  breed: string;
-  age: number;
+  readonly id: string;
+  readonly breed: string;
+  readonly age: number;
 
   constructor(id: string, breed: string, age: number) {
     this.id = id;
