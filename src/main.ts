@@ -1,7 +1,9 @@
 const puppyRepository: {
   array: Puppy[];
+  map: Map<Puppy['id'], Puppy>;
 } = {
   array: [],
+  map: new Map(),
 };
 
 const puppyService = {
@@ -11,12 +13,16 @@ const puppyService = {
   cashArray(puppy: Puppy) {
     puppyRepository.array.push(puppy);
   },
+  cashMap(puppy: Puppy) {
+    const exist = puppyRepository.map.has(puppy.id);
+
+    if (exist) return;
+
+    puppyRepository.map.set(puppy.id, puppy);
+  },
   renderPuppy(containerElement: HTMLElement, puppy: Puppy) {
     const puppyElement = this._createPuppyElement(puppy);
     containerElement.append(puppyElement);
-  },
-  _getPuppies(): Puppy[] {
-    return puppyRepository.array;
   },
   _createPuppyElement(puppy: Puppy): HTMLElement {
     const rootElement = document.createElement('li');
@@ -27,7 +33,6 @@ const puppyService = {
     rootElement.dataset.id = puppy.id;
     breedElement.textContent = `🐶 ${puppy.breed}`;
     ageElement.textContent = String(puppy.age);
-    indexElement.textContent = String(this._getPuppies().length);
 
     rootElement.append(breedElement, ageElement, indexElement);
 
@@ -49,10 +54,18 @@ class Puppy {
 
 document.addEventListener('DOMContentLoaded', () => {
   document
-    .getElementById('execute-add-puppy-in-array-click-trigger')!
+    .getElementById('execute-add-puppy-in-array-save-click-trigger')!
     .addEventListener('click', () => {
       const puppy = puppyService.creatPuppy();
       puppyService.cashArray(puppy);
+      puppyService.renderPuppy(document.getElementById('puppies')!, puppy);
+    });
+
+  document
+    .getElementById('execute-add-puppy-in-map-save-click-trigger')!
+    .addEventListener('click', () => {
+      const puppy = puppyService.creatPuppy();
+      puppyService.cashMap(puppy);
       puppyService.renderPuppy(document.getElementById('puppies')!, puppy);
     });
 });
