@@ -19,8 +19,8 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "typescript": "^4.9.3",
-    "vite": "^4.2.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.9",
     "gts": "^3.1.1",
     "@types/node": "^14.11.2",
     "@types/react": "^18.0.37",
