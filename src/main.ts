@@ -1,7 +1,7 @@
 import './style.css';
+import {Composer} from './Composer';
+import {CounterView} from './counter/CounterView';
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <h1>Vite + TypeScript</h1>
-  </div>
-`;
+const rootEl = document.querySelector<HTMLDivElement>('#app')!;
+
+new Composer(rootEl, new CounterView());
