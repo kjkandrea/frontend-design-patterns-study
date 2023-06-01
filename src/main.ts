@@ -4,4 +4,4 @@ import {CounterView} from './counter/CounterView';
 
 const rootEl = document.querySelector<HTMLDivElement>('#app')!;
 
-new Composer(rootEl, new CounterView());
+new Composer(rootEl, CounterView);
