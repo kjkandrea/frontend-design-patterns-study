@@ -3,7 +3,10 @@ import {Counter} from "./Counter";
 
 function App() {
   return (
-    <Counter />
+    <section>
+      <h2>All In One Counter Component</h2>
+      <Counter />
+    </section>
   )
 }
 
