@@ -1,7 +1,7 @@
-import {useCount} from "./useCount";
+import {useSingleCount} from "src/Counter/useSingleCount";
 
 export const Counter = () => {
-  const { count, increase, decrease } = useCount();
+  const { count, increase, decrease } = useSingleCount();
   return (
     <>
       <h1>{count}</h1>

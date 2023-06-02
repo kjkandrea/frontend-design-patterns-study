@@ -1,7 +1,7 @@
 import {useState} from "react";
-import {Count} from "./Count";
+import {CountModel} from "./Count";
 
-export const useCount = (): Count => {
+export const useSingleCount = (): CountModel => {
   const [count, setCount] = useState(0);
 
   const increase = () => {
