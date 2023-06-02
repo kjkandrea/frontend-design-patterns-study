@@ -1,4 +1,4 @@
-import {useSingleCount} from "src/Counter/useSingleCount";
+import {useSingleCount} from "./useSingleCount";
 
 export const Counter = () => {
   const { count, increase, decrease } = useSingleCount();
