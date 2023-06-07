@@ -11,8 +11,7 @@ export const WithSingleCount = (CounterView: ComponentType< CountModel >) => {
 
 export const WithMultiplesCount = (CounterView: ComponentType<CountModel>, args: Parameters<typeof useMultiplesCount>[0]) => {
   return function CounterWrapper() {
-    const count = useMultiplesCount(args);
-    return <CounterView {...count} />
+    return <CounterView {...useMultiplesCount(args)} />
   }
 }
 
